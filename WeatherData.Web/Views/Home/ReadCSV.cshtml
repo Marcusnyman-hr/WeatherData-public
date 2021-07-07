@@ -1,0 +1,20 @@
+﻿@{
+  ViewData["Title"] = "Read CSV data";
+}
+
+<div class="read-csv">
+  <div class="text-container">
+    @if (ViewBag.InsertedRows < 1)
+    {
+      <h2 class="csv-error">No data added</h2>
+      <p>There is no more data to add to the database.</p>
+    }
+    else
+    {
+      <h2 class="csv-success">Success!</h2>
+      <p>@ViewBag.InsertedRows measure point inserted into the database.</p>
+    }
+  </div>
+  <img src="~/assets/svg/readcsv.svg" class="read-csv-svg" />
+
+</div>

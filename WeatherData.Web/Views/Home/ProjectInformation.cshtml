@@ -1,0 +1,156 @@
+﻿@*
+    For more information on enabling MVC for empty projects, visit https://go.microsoft.com/fwlink/?LinkID=397860
+*@
+@{
+}
+<div class="project-info-container">
+  <h1 class="project-info-heading">Projektarbete WeatherData - Entity Framework - BED20</h1>
+
+  <div class="project-section">
+    <h3>Beskrivning</h3>
+    <ul>
+      <li>
+        Projektet är en applikation som, utifrån befintlig temperatur- och
+        luftfuktighetsdata kan söka, sortera och dra slutsatser.
+      </li>
+      <li>
+        Projektarbetet utförs i grupp.
+      </li>
+      <li>
+        Datafil i textformat, kommaseparerat.
+      </li>
+      <li>
+        Datafilen är autentisk, och har datafel, och luckor.
+      </li>
+      <li>
+        Exempel på data:
+        <a href="https://docs.google.com/spreadsheets/d/1r0JNrqXmbFJF28CaF3nqTc9MwnKUpuXyv2hoImWwjoc">data.csv</a>
+      </li>
+    </ul>
+  </div>
+
+  <div class="project-section">
+    <h3>Planritning</h3>
+    <img src="~/assets/img/2021-02-24 09_20_50-Window.png" />
+  </div>
+
+  <div class="project-section">
+    <h3>Applikationen</h3>
+    <h4>Er applikation skall:</h4>
+    <ul>
+      <li>Automatiskt skapa databasen om den inte redan finns</li>
+      <li>Vid behov läsa in datafilen TempFuktData.csv och fylla på databasen</li>
+      <li>
+        <h4>Använda ett ändamålsenligt användargränssnitt, så som:</h4>
+
+        <ul>
+          <li>
+            Ett enkelt konsolgränssnitt som visar att alla kraven är uppfyllda – det behövs inte
+            ens någon input från användaren
+          </li>
+          <li>
+            Ett webbgränsnitt skapat med MVC
+          </li>
+          <li>
+            Ett webbgränssnitt med någon annan teknik (som vi inte har gått igenom ännu),
+            till exempel Blazor
+          </li>
+          <li>
+            Windows Forms eller WPF eller en mobilapp eller något annat
+          </li>
+        </ul>
+      </li>
+    </ul>
+  </div>
+
+  <div class="project-section">
+    <h3>Databasen</h3>
+    <ul>
+      <li>Databasen skall skapas av Entity Framework</li>
+      <li>Ni skall alltså arbeta enligt metoden Code First</li>
+      <li>Det är inget krav att använda SQL Server, men en rekommendation</li>
+      <li>
+        Datamodellen behöver inte normaliseras – det räcker med en enda
+        tabell
+      </li>
+    </ul>
+  </div>
+
+  <div class="project-section">
+    <h3>Följande information skall visas</h3>
+    <h4>Utomhus</h4>
+    <ul>
+      <li>
+        Medeltemperatur för valt datum (sökmöjlighet)
+      </li>
+      <li>Sortering av varmaste till kallaste dagen enligt medeltemperatur per dag</li>
+      <li>Sortering av torraste till fuktigaste dagen enligt medelluftfuktighet per dag</li>
+      <li>
+        Sortering av minst till störst risk av mögel
+      </li>
+      <li>
+        Datum för meteorologisk Höst
+      </li>
+      <li>Datum för meteorologisk Vinter (OBS! Vintern 2016 var mild)</li>
+    </ul>
+    <h4>Inomhus</h4>
+    <ul>
+      <li>Medeltemperatur för valt datum (sökmöjlighet)</li>
+      <li>Sortering av varmaste till kallaste dagen enligt medeltemperatur per dag</li>
+      <li>Sortering av torraste till fuktigaste dagen enligt medelluftfuktighet per dag</li>
+      <li>Sortering av minst till störst risk av mögel</li>
+    </ul>
+  </div>
+
+  <div class="project-section">
+    <h3>Frågeställningar som ska lösas</h3>
+    <ul>
+      <li>
+        Val av datatyper i DB för den här typen av data.
+      </li>
+      <li>Inläsning av textfil till databasen</li>
+      <li>Algoritmer som räknar fram aggregerad data</li>
+      <li>
+        Meteorologiska regler för Höst, Vinter och Mögelindex
+      </li>
+      <li>
+        Mögelrisk, hitta formel.
+      </li>
+    </ul>
+  </div>
+
+  <div class="project-section">
+    <h3>Andra krav</h3>
+    <ul>
+      <li>
+        Källkoden dokumenterad i löpande kod, med särskild stor vikt vid
+        användandet av algoritmer. Förklara dina val av algoritmer och
+        datastrukturer.
+      </li>
+      <li>
+        Jämför gärna de resultat du får i din applikation med andra grupper, för
+        att dela med er av hur ni tänkt.
+      </li>
+      <li>Samtliga krav och specifikationer kan ändras under arbetets gång.</li>
+    </ul>
+  </div>
+
+  <div class="project-section">
+    <h3>Krav för VG</h3>
+    <h4>
+      För att få VG ska programmet även kunna göra bedömningar kring
+      följande frågor:
+    </h4>
+    <ul>
+      <li>
+        Hur länge är balkongdörren öppen per dag, och sortera på detta.
+        Antagandet är att om balkongdörren öppnas så sjunker innertemperaturen lite.
+        Yttertemperaturen höjs också lite grann, eftersom termometern sitter nära
+        balkongdörren.
+      </li>
+      <li>
+        Sortering på då inne- och utetemperaturerna skiljt sig mest och minst.
+      </li>
+    </ul>
+  </div>
+</div>

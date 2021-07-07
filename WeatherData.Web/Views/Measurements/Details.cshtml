@@ -1,0 +1,125 @@
+﻿@model IEnumerable<WeatherData.Web.Models.MeasurementSnapshot>
+
+@{
+    ViewData["Title"] = "Details";
+}
+
+<div class="details">
+    <h2>@ViewBag.Date</h2>
+    <a class="back-btn" asp-action="Index">< Back to List</a>
+    <div class="table-container" style="width:1200px;height:400px;overflow:auto;">
+        <table class="table">
+            <thead>
+                <tr>
+                    <th>
+                        @Html.ActionLink("Timestamp", "Details", new { sortOrder = ViewBag.TimestampSortParam })
+                    </th>
+                    <th>
+                        @Html.ActionLink("Inner Temperature (°C)", "Details", new { sortOrder = ViewBag.InnerTempParam })
+                    </th>
+                    <th>
+                        @Html.ActionLink("Outer Temperature (°C)", "Details", new { sortOrder = ViewBag.OuterTempParam })
+                    </th>
+                    <th>
+                        @Html.ActionLink("Difference", "Details", new { sortOrder = ViewBag.TempDiffParam })
+                    </th>
+                    <th>
+                        @Html.ActionLink("Door Open", "Details", new { sortOrder = ViewBag.DoorOpenParam })
+                    <th />
+                </tr>
+            </thead>
+            <tbody>
+                @foreach (var item in Model)
+                {
+                    <tr>
+                        <td>
+                            @item.Timestamp.ToString("HH:mm")
+                        </td>
+                        <td>
+                            @Html.DisplayFor(modelItem => item.InsideTemperature)
+                        </td>
+                        <td>
+                            @Html.DisplayFor(modelItem => item.OutsideTemperature)
+                        </td>
+                        <td>
+                            @if (item.TemperatureDifference != null)
+                            {
+                                @Math.Round((decimal)item.TemperatureDifference, 1)
+                            }
+                        </td>
+                        <td>
+                            @Html.DisplayFor(modelItem => item.DoorOpen)
+                        </td>
+                    </tr>
+                }
+            </tbody>
+        </table>
+    </div>
+    <br />
+    <div class="stats">
+        <div class="charts">
+            <div class="chart-header"></div>
+            <div id="chartContainer" style="height: 300px; width: 100%;">
+            </div>
+        </div>
+        <div class="stats-summary">
+            <div class="stats-summary-header"><span>Min / Max stats</span></div>
+            <div class="stats-count">
+                <ul>
+                    <li><i class="fas fa-registered"></i></li>
+                    <li><i class="fas fa-snowflake"></i></li>
+                    <li><i class="fas fa-fire"></i></li>
+                    <li><i class="fas fa-snowflake"></i></li>
+                    <li><i class="fas fa-fire"></i></li>
+                </ul>
+                <ul>
+                    <li>Readings: @ViewBag.Readings</li>
+                    <li>Outdoor: @ViewBag.LowestOutdoorTemp</li>
+                    <li>Outdoor: @ViewBag.HighestOutdoorTemp</li>
+                    <li>Indoor: @ViewBag.LowestIndoorTemp</li>
+                    <li>Indoor: @ViewBag.HighestIndoorTemp</li>
+                </ul>
+            </div>
+        </div>
+    </div>
+
+    <script>
+        window.onload = function () {
+
+        var chart = new CanvasJS.Chart("chartContainer", {
+	        theme: "light1",
+	        axisY: {
+              suffix: "°C"
+	        },
+	        toolTip: {
+		        shared: true
+	        },
+	        data: [{
+		        type: "area",
+		        name: "Indoor Temp",
+		        markerSize: 0,
+		        xValueType: "dateTime",
+                xValueFormatString: "MMM YYYY DD",
+                yValueFormatString: "0.#°C",
+		        dataPoints: @Html.Raw(ViewBag.IndoorTemps)
+	        },
+	        {
+		        type: "area",
+		        name: "Outdoor Temp",
+		        markerSize: 0,
+		        xValueType: "dateTime",
+                xValueFormatString: "MMM YYYY DD",
+              yValueFormatString: "0.#°C",
+		        dataPoints: @Html.Raw(ViewBag.OutdoorTemps)
+	        }
+	        ]
+        });
+        chart.render();
+
+        }
+    </script>
+
+</div>
+<div>
+    <a asp-action="Index">Back to List</a>
+</div>

@@ -1,0 +1,101 @@
+﻿<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="utf-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>@ViewData["Title"] - WeatherData.Web</title>
+  @*<link rel="stylesheet" href="~/lib/bootstrap/dist/css/bootstrap.min.css" />*@
+  <link rel="stylesheet" href="~/css/site.css" />
+  <link rel="preconnect" href="https://fonts.gstatic.com">
+  <link href="https://fonts.googleapis.com/css2?family=Montserrat&display=swap" rel="stylesheet">
+  <script src="https://kit.fontawesome.com/5e05ee9535.js" crossorigin="anonymous"></script>
+  <script src="~/js/canvasjs.min.js"></script>
+</head>
+<body>
+  <main>
+    <header>
+      <div class="group-logo"><i class="fas fa-gem"></i><span class="group-logo-text">Diamond Gardeners</span></div>
+      @{
+        var controllerName = string.Empty;
+        object controllerObj;
+        var actionName = string.Empty;
+        object actionObj;
+
+        if (ViewContext.RouteData.Values.TryGetValue("controller", out controllerObj))
+        {
+          controllerName = controllerObj.ToString();
+        }
+
+        if (ViewContext.RouteData.Values.TryGetValue("action", out actionObj))
+        {
+          actionName = actionObj.ToString();
+        }
+        if (controllerName == "Measurements" && actionName == "Index")
+        {
+          <div class="search-container" id="main-search">
+            <i class="fas fa-search"></i>
+            @using (Html.BeginForm(FormMethod.Get))
+            {
+              @Html.TextBox("SearchString", ViewBag.currentFilter as string, new { @class = "search-field", placeholder = "Enter a date to search for.." })
+              <input type="submit" value="Search" class="search-btn" />
+            }
+          </div>
+        }
+      }
+
+      <div class="clock-container">
+        <span class="clock">@DateTime.Now.ToString("dddd, dd MMMM yyyy")</span>
+
+      </div>
+    </header>
+    <div class="nav-content-container">
+      <nav>
+        <div class="menu-heading"><span>Menu</span></div>
+        @if (controllerName == "Measurements" && actionName == "Index")
+        {
+        <div class="search-container" id="menu-search">
+          <i class="fas fa-search"></i>
+          @using (Html.BeginForm(FormMethod.Get))
+          {
+            @Html.TextBox("SearchString", ViewBag.currentFilter as string, new { @class = "search-field", placeholder = "Enter a date to search for.." })
+            <input type="submit" value="Search" class="search-btn" />
+          }
+        </div>
+        }else
+        {
+          <div></div>
+        }
+        <ul class="nav-menu">
+          <li class="nav-item">
+            <a class="nav-link text-dark" asp-area="" asp-controller="Home" asp-action="Index"><i class="fas fa-home"></i>Home</a>
+          </li>
+          <li class="nav-item">
+            <a class="nav-link text-dark" asp-area="" asp-controller="Measurements" asp-action="Index"><i class="fas fa-thermometer-three-quarters"></i>Measurements</a>
+          </li>
+          <li class="nav-item">
+            <a class="nav-link text-dark" asp-area="" asp-controller="Home" asp-action="ReadCSV"><i class="fas fa-file-upload"></i>Import Data</a>
+          </li>
+          <li class="nav-item">
+            <a class="nav-link text-dark" asp-area="" asp-controller="Home" asp-action="Documentation"><i class="fas fa-users"></i>Documentation</a>
+          </li>
+          <li class="nav-item">
+            <a class="nav-link text-dark" asp-area="" asp-controller="Home" asp-action="ProjectInformation"><i class="fas fa-users"></i>Project Information</a>
+          </li>
+          <li class="nav-item">
+            <a class="nav-link text-dark" asp-area="" asp-controller="Home" asp-action="AboutUs"><i class="fas fa-users"></i>About Us</a>
+          </li>
+        </ul>
+      </nav>
+      <div class="content">
+        @RenderBody()
+      </div>
+    </div>
+
+  </main>
+
+
+  
+  <script src="~/js/site.js" asp-append-version="true"></script>
+  @await RenderSectionAsync("Scripts", required: false)
+</body>
+</html>
